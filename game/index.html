@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+img {
+    position: absolute;
+    }
+
+div {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+    }
+    #rightSide { left: 500px;
+            border-left: 1px solid black }
+</style>
+<body onload="generateFaces()">
+<script>
+var numberOfFaces=5;
+
+function generateFaces()
+{
+
+    var theLeftSide = document.getElementById("leftSide");
+    var theRightSide = document.getElementById("rightSide");
+    var theBody = document.getElementsByTagName("body")[0];
+    for (i = 0; i < numberOfFaces; i++)
+    {
+        var dog=Math.floor(Math.random() * 400) + 1;
+        var cat=Math.floor(Math.random() * 400) + 1;
+        var x = document.createElement("img");
+        x.src="smile.png";
+        x.style.left= dog +"px";
+        x.style.top=cat+"px";
+        theLeftSide.appendChild(x);
+    }
+
+    var leftSideImages = theLeftSide.cloneNode(true);
+    if (numberOfFaces==5){
+        leftSideImages.removeChild(leftSideImages.childNodes[numberOfFaces]);
+    }
+    else{
+        leftSideImages.removeChild(leftSideImages.childNodes[numberOfFaces-1]);
+    }
+
+    theRightSide.appendChild(leftSideImages);
+
+    theLeftSide.lastChild.onclick= function nextLevel(event)
+    {
+
+            event.stopPropagation();
+
+            var myNode = document.getElementById("rightSide");
+            while (myNode.firstChild)
+            {
+                myNode.removeChild(myNode.firstChild);
+
+            }
+
+            var myNode = document.getElementById("leftSide");
+            while (myNode.firstChild)
+            {
+                myNode.removeChild(myNode.firstChild);
+            }
+            numberOfFaces += 5;
+            generateFaces();
+    };
+
+    theBody.onclick = function gameOver() {
+
+        alert("WRONG!");
+
+
+
+
+
+    };
+}
+
+
+
+
+
+</script>
+
+
+    <h1>Matching game</h1>
+    <p1>Click on the extra smiling face on the left</p1>
+
+ <div id="rightSide"> </div>
+
+      <div id="leftSide"> </div>
+
+</body>
+</html>
